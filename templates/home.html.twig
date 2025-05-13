@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block head %}
+    <link rel="stylesheet" href="templates/style/home.css">
+{% endblock %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+  {% include 'particals/header.html.twig' %}
+  {% include 'particals/search_bar.html.twig' %}
+  {% include 'particals/noteList.html.twig' %}
+  {% include 'particals/new_note.html.twig' %}
+  
+</div>
+
+<script src="templates/particals/js/header.js" defer></script>
+<script src="templates/particals/js/note.js" defer></script>
+<script src="templates/particals/js/note_list.js" defer></script>
+
+
+{% endblock %}

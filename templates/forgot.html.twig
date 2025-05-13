@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Forgot Password</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="templates/style/index.css">
+</head>
+
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+                <div class="card shadow-lg">
+                    <div class="card-header bg-success text-white text-center">
+                        <h4>Forgot Password</h4>
+                    </div>
+                    <div class="card-body">
+                        {% if success %}
+                        <div class="alert alert-success">{{ success }}</div>
+                        {% endif %}
+                        {% if error %}
+                        <div class="alert alert-danger">{{ error }}</div>
+                        {% endif %}
+                        <form action="forgot.php" method="POST">
+                            <!-- Ô nhập email -->
+                            <div class="mb-3">
+                                <label>Email:</label>
+                                <input type="email" name="email" class="form-control" value="{{ email|default('') }}" required>
+                            </div>
+                            <button type="submit" name="send_otp" class="btn btn-success">Send OTP</button>
+
+                            {% if show_otp_form %}
+                            <!-- Phần nhập OTP + mật khẩu mới chỉ hiển thị sau khi gửi mail -->
+                            <div class="mt-4">
+                                <div class="mb-3">
+                                    <label>OTP:</label>
+                                    <input type="text" name="otp" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Mật khẩu mới:</label>
+                                    <input type="password" name="new_password" class="form-control" required>
+                                </div>
+                                <button type="submit" name="verify_otp" class="btn btn-success">Xác nhận</button>
+                            </div>
+                            {% endif %}
+                        </form>
+                        {% if change %}
+                        <div class="alert alert-danger">{{ error }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="card-footer text-center">
+                        <a href="login.php" class="text-decoration-none">Back to Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

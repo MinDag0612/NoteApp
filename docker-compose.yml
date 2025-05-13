@@ -1,0 +1,31 @@
+services:
+  web:
+    build: .
+    container_name: noteapp-web
+    ports:
+      - "80:80"
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - db
+    networks:
+      - noteapp-network
+
+  db:
+    image: mysql:5.7
+    container_name: noteapp-db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: noteapp_db
+      MYSQL_USER: noteapp_user
+      MYSQL_PASSWORD: noteapp_password
+    volumes:
+      - ./noteapp_db.sql:/docker-entrypoint-initdb.d/noteapp_db.sql
+    ports:
+      - "3306:3306"
+    networks:
+      - noteapp-network
+
+networks:
+  noteapp-network:
+    driver: bridge
