@@ -54,8 +54,7 @@
         if (isset($_POST['send_otp'])) {
             $email = $_POST['email'];
             $user = getData($email);
-
-            if ($user) {
+            if ($user != null) {
                 $otp = rand(100000, 999999);
                 $_SESSION['otp'] = $otp;
                 $_SESSION['reset_email'] = $email;
@@ -63,18 +62,25 @@
                 if ($sent) {
                     $message = "OTP đã được gửi tới email của bạn.";
                     $showOtpForm = true;
+                    echo $twig->render('forgot.html.twig', [
+                        'show_otp_form' => 'true',
+                        'email' => $email
+                    ]);
                 } else {
                     $message = "Không thể gửi email. Vui lòng thử lại.";
+                    echo $twig->render('forgot.html.twig', [
+                        'error' => $message
+                    ]);
                 }
             } else {
                 $message = "Email không tồn tại trong hệ thống.";
+                echo $twig->render('forgot.html.twig', [
+                    'error' => $message
+                ]);
             }
-            echo $twig->render('forgot.html.twig', [
-                'show_otp_form' => 'true',
-                'email' => $email
-            ]);
         }
         elseif (isset($_POST['verify_otp'])) {
+            $email = $_POST['email'];
             $enteredOtp = $_POST['otp'];
             $newPass = $_POST['new_password'];
             $success = null;
@@ -83,6 +89,7 @@
             if ($_SESSION['otp'] == $enteredOtp) {
                 $email = $_SESSION['reset_email'];
                 $success = "Mật khẩu đã được đặt lại thành công.";
+                updatePassword($email, $newPass);
                 unset($_SESSION['otp'], $_SESSION['reset_email']);
             } else {
                 $error = "OTP không đúng. Vui lòng thử lại.";
