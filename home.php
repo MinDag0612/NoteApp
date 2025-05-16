@@ -3,7 +3,7 @@
         session_start();
     }
     require 'vendor/autoload.php';
-    require "auth.php";
+    // require "auth.php";
     require 'api/notes.php';
     // echo $reqVerify;
 
@@ -14,6 +14,22 @@
     $verify = $_SESSION['reqVerify'] ?? null;
     $name = $_SESSION['infor']['name'];
     $email = $_SESSION['infor']['email'];
+
+    $id = $_SESSION['infor']['id'] ?? $_POST['id'];
+    
+    $folder = 'templates/style/image/' . $id . '/';
+    
+
+    $files = glob($folder . '*');
+    $avatarPath = 'templates/style/image/default.jpg'; // fallback mặc định
+    // echo json_encode($folder);
+
+    if (!empty($files)) {
+        $fileName = basename($files[0]);
+        $avatarPath = 'templates/style/image/' . $id . '/' . $fileName;
+        // echo  $avatarPath;
+    }
+    
 
     // $notes = [
     //     ['title' => 'Công việc hôm nay', 'content' => 'Hoàn thành bài toán phân tích hệ thống và gửi báo cáo.'],
@@ -30,6 +46,9 @@
         'name' => $_SESSION['infor']['name'],
         'verify' => $_SESSION['reqVerify'] ?? null,
         'email' => $email,
+        'id' => $id,
+        'avt' => $avatarPath,
         'notes' => $notes
+
     ]);
 ?>

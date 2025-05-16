@@ -56,11 +56,6 @@ function removeNote(id) {
     });
 }
 
-function confirmPass(){
-
-}
-
-
 function loadNotes() {
     const email = document.querySelector("#new-note").dataset.email;
 
@@ -180,5 +175,62 @@ function new_note() {
     });
 }
 
+function changeProfile() {
+    const currEmail = document.getElementById('changeProfileBtn').dataset.email;
+    const newEmail = document.getElementById("accountEmail").value;
+    const newName = document.getElementById("accountName").value;
+
+    const formData = new FormData();
+    formData.append('newEmail', newEmail);
+    formData.append('newName', newName);
+    formData.append('currEmail', currEmail);
+
+    fetch('api/updateProfile.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(res => res.text())
+    .then(text => {
+        alert(text);
+        // Nếu text là 1 thông báo thành công cụ thể:
+        if (text.includes("Cập nhật thành công")) {
+            window.location.href = 'login.php';
+        }
+    })
+    .catch(err => {
+        console.error("Fetch error", err);
+    });
+}
+
+function updateAvt() {
+    const newAvt = document.getElementById('avatarFile').files[0];
+    const id = document.getElementById('btnAvt').dataset.id;
+
+    const formData = new FormData();
+    formData.append('newAvt', newAvt);
+    formData.append('id' , id)
+
+    fetch('api/updateAvatar.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(res => res.text())
+    .then(text => {
+        alert(text);
+        window.location.href = 'home.php';
+    })
+    .catch(err => {
+        console.error("Fetch error", err);
+    });
+}
+
 document.querySelector("#new-note").addEventListener("click", new_note);
 document.addEventListener('DOMContentLoaded', loadNotes);
+document.getElementById('accountModal').addEventListener("submit",  (event) => {
+    event.preventDefault();
+    changeProfile();
+})
+document.getElementById('avatarModal').addEventListener("submit",  (event) => {
+    event.preventDefault();
+    updateAvt();
+})

@@ -1,9 +1,8 @@
 <?php
-    use PHPMailer\PHPMailer\PHPMailer;
-    use PHPMailer\PHPMailer\Exception;
-
     require 'vendor/autoload.php';
     require_once 'api/account.php';
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\Exception;
 
     session_start();
     function sendVerify($toEmail, $toName, $token) {

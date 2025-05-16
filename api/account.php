@@ -1,6 +1,6 @@
 <?php
     require_once 'connect.php';
-    require 'vendor/autoload.php'; 
+
 
     function checkMail($email){
         global $conn;
@@ -75,4 +75,27 @@
         }
     }
 
+    function updateProfile($currEmail, $email, $name) {
+        global $conn;
+
+        $check = $conn->prepare('SELECT COUNT(*) FROM account WHERE email = ? AND email != ?');
+        $check->bind_param('ss', $email, $currEmail);
+        $check->execute();
+        $check->bind_result($count);
+        $check->fetch();
+        $check->close();
+
+        if ($count > 0) {
+            echo 'Email đã tồn tại.';
+        } else {
+            $query = $conn->prepare('UPDATE account SET name = ?, email = ? WHERE email = ?');
+            $query->bind_param('sss', $name, $email, $currEmail);
+            if ($query->execute()) {
+                echo 'Cập nhật thành công.';
+            } else {
+                echo 'Có lỗi xảy ra khi cập nhật.';
+            }
+            $query->close();
+        }
+    }
 ?>

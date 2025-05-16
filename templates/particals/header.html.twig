@@ -1,13 +1,18 @@
 <div class="d-flex justify-content-between align-items-center mb-3" id="header">
-    <h2 class="fw-bold text-secondary">Welcome, {{ name }}</h2>
+    <div class="d-flex align-items-center">
+        <img src=" {{ avt }}" id="avatarDisplay" class="rounded-circle me-3" width="50" height="50" alt="Avatar"
+            style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#avatarModal">
+        <h2 class="fw-bold text-secondary mb-0">Welcome, {{ name }}</h2>
+    </div>
     <div>
         <button class="btn btn-outline-primary me-2" id="toggleViewBtn">Switch View</button>
         <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#userOptionsModal">Tùy chọn
             người dùng</button>
+        <button class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#accountModal">Profile</button>
     </div>
 </div>
 
-<!-- Modal -->
+<!-- Modal themse -->
 <div class="modal fade" id="userOptionsModal" tabindex="-1" aria-labelledby="userOptionsModalLabel">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -39,6 +44,63 @@
     </div>
 </div>
 
-<script>
+<!-- Modal profile -->
 
-</script>
+<div class="modal fade" id="accountModal" tabindex="-1" aria-labelledby="accountModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="accountModalLabel">Thông tin tài khoản</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+            </div>
+            <div class="modal-body">
+                <form id="accountForm">
+                    <div class="mb-3">
+                        <label for="accountEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="accountEmail" value="{{ email }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="accountName" class="form-label">Tên</label>
+                        <input type="text" class="form-control" id="accountName" value="{{ name }}">
+                    </div>
+                    <div class="text-end mt-1">
+                        <a href="forgot.php" class="text-decoration-none small text-primary">Forgot
+                            password?</a>
+                    </div>
+                    <div class="mb-3 text-end mt-2">
+                        <button type="submit" class="btn btn-warning" id="changeProfileBtn"
+                            data-email="{{ email }}">Save profile</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal avatar -->
+<div class="modal fade" id="avatarModal" tabindex="-1" aria-labelledby="avatarModalLabel">
+    {{ avt }}
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="avatarForm">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thay đổi ảnh đại diện</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3 text-center">
+                        <img id="previewAvatar" src=" {{ avt }}" class="rounded-circle" width="100" height="100"
+                            alt="Preview Avatar">
+                    </div>
+                    <div class="mb-3">
+                        <label for="avatarFile" class="form-label">Chọn ảnh mới</label>
+                        <input class="form-control" type="file" id="avatarFile" name="avatar" accept="image/*" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" id="btnAvt" data-id=" {{ id }}">Cập nhật ảnh</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
