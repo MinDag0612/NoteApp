@@ -1,6 +1,8 @@
 document.getElementById('searchInput').addEventListener('input', function () {
     const query = this.value.trim();
+    const email = this.dataset.email
     const resultsList = document.getElementById('searchResults');
+    console.log(email)
 
     if (query === '') {
         resultsList.classList.add('d-none');
@@ -8,7 +10,7 @@ document.getElementById('searchInput').addEventListener('input', function () {
         return;
     }
 
-    fetch(`api/search_notes.php?q=${encodeURIComponent(query)}`)
+    fetch(`api/search_notes.php?q=${encodeURIComponent(query)}&email=${encodeURIComponent(email)}`)
         .then(res => res.json())
         .then(data => {
             if (data.length > 0) {

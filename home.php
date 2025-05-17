@@ -3,7 +3,7 @@
         session_start();
     }
     require 'vendor/autoload.php';
-    // require "auth.php";
+    require "auth.php";
     require 'api/notes.php';
     // echo $reqVerify;
 

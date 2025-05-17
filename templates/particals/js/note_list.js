@@ -193,9 +193,7 @@ function changeProfile() {
     .then(text => {
         alert(text);
         // Nếu text là 1 thông báo thành công cụ thể:
-        if (text.includes("Cập nhật thành công")) {
-            window.location.href = 'login.php';
-        }
+        window.location.href = 'login.php';
     })
     .catch(err => {
         console.error("Fetch error", err);
