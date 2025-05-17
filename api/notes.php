@@ -50,16 +50,37 @@ function new_note($email){
     }
 }
 
+function deleteFolder($folder) {
+    if (!is_dir($folder)) return false;
+
+    $files = array_diff(scandir($folder), ['.', '..']);
+    foreach ($files as $file) {
+        $filePath = $folder . DIRECTORY_SEPARATOR . $file;
+        if (is_dir($filePath)) {
+            deleteFolder($filePath); // gọi đệ quy nếu là thư mục con
+        } else {
+            unlink($filePath);
+        }
+    }
+    return rmdir($folder); // cuối cùng xóa thư mục chính
+}
 
 function remove_note($id) {
     global $conn;
+    $folderPath = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "statics" . DIRECTORY_SEPARATOR . $id;
 
     $query = $conn->prepare("DELETE FROM `notes` WHERE id = ?");
     $query->bind_param("i", $id);
-    $query->execute();
     if ($query->execute()) {
-        return true;
-        echo "Đã xóa:" . $id;
+        if (file_exists($folderPath) && is_dir($folderPath)) {
+            if (deleteFolder($folderPath)) {
+                echo json_encode(["status" => "success", "message" => "Thư mục đã được xóa."]);
+            } else {
+                echo json_encode(["status" => "error", "message" => "Không thể xóa thư mục."]);
+            }
+        } else {
+            echo json_encode(["status" => "error", "message" => "Thư mục không tồn tại."]);
+        }
     } else {
         return false;
     }
