@@ -10,6 +10,26 @@ services:
       - db
     networks:
       - noteapp-network
+    environment:
+      MYSQL_HOST: db
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: noteapp_db
+      MYSQL_USER: noteapp_user
+      MYSQL_PASSWORD: noteapp_password
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: noteapp-phpmyadmin
+    ports:
+      - "8080:80"  # Truy cập phpMyAdmin tại http://localhost:8080
+    environment:
+      PMA_HOST: db          # Host trỏ đến service `db` (MySQL)
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: rootpassword  # Trùng với mật khẩu root của MySQL
+    depends_on:
+      - db
+    networks:
+      - noteapp-network
 
   db:
     image: mysql:5.7

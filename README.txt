@@ -16,7 +16,7 @@ Descrise about project:
 Instructions for running projects using Docker:
     - From github
         Enter: // git clone https://github.com/MinDag0612/NoteApp // - creata clone of project 
-        Enter: // cd NoteApp - move to the clone. // 
+        Enter: // cd NoteApp // - move to the clone.
         Enter: // docker-compose up -d --build // - build container by Docker.
         Access project on: // http://localhost:80 // or click link in Docker.
 

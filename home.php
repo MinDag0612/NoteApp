@@ -5,15 +5,17 @@
     require 'vendor/autoload.php';
     require "auth.php";
     require 'api/notes.php';
+    require 'api/account.php';
     // echo $reqVerify;
 
     $loader = new \Twig\Loader\FilesystemLoader('templates');
     $twig = new \Twig\Environment($loader);
 
     $name = null;
-    $verify = $_SESSION['reqVerify'] ?? null;
+    
     $name = $_SESSION['infor']['name'];
     $email = $_SESSION['infor']['email'];
+    $verify = getData($email)['verify'] ?? null;
 
     $id = $_SESSION['infor']['id'] ?? $_POST['id'];
     

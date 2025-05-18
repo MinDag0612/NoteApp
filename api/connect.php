@@ -1,19 +1,14 @@
 <?php
-    $host = getenv('DB_HOST') ?: 'localhost';
-    $db   = getenv('DB_NAME') ?: 'noteapp_db';
-    $user = getenv('DB_USER') ?: 'root';
-    $pass = getenv('DB_PASS') ?: '';
+    $host = getenv('MYSQL_HOST') ?: 'localhost';
+    $db   = getenv('MYSQL_DATABASE') ?: 'noteapp_db';
+    $user = getenv('MYSQL_USER') ?: 'root';
+    $pass = getenv('MYSQL_PASSWORD') ?: '';
 
     // $host = 'db'; // không cần getenv nếu cố định
     // $db   = 'noteapp_db';
     // $user = 'noteapp_user';
     // $pass = 'noteapp_password';
 
-
-    // $host = 'db';     
-    // $db   = 'final_se';       
-    // $user = 'user';           
-    // $pass = 'password';
 
     $conn = new mysqli($host, $user, $pass, $db);
 

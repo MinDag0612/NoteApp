@@ -24,12 +24,47 @@ function autoSaveNote() {
     .then(res => {
         if (res.ok) showSaveStatus();
         const noteItem = document.querySelector(`.note-item[data-id="${id}"]`);
+        changeForm()
         if (noteItem) {
             noteItem.setAttribute('data-title', title);
             noteItem.setAttribute('data-content', content);
             noteItem.querySelector('.card-title').textContent = title;
             noteItem.querySelector('.card-text').textContent = content;
         }
+    });
+}
+
+function changeForm(){
+    document.querySelectorAll('.note-item').forEach(item => {
+        item.addEventListener('click', () => {
+            const id = item.getAttribute('data-id');
+            const title = item.getAttribute('data-title');
+            const content = item.getAttribute('data-content');
+
+            document.getElementById('editNoteId').value = id;
+            document.getElementById('editNoteTitle').value = title;
+            document.getElementById('editNoteContent').value = content;
+
+            fetch(`api/get_image.php?id=${id}`)
+                .then(response => response.json())
+                .then(images => {
+                    const imageContainer = document.querySelector("#imagePreviewContainer");
+                    imageContainer.innerHTML = '';
+
+                    if (images.length > 0) {
+                        images.forEach(image => {
+                            const imgElement = document.createElement("img");
+                            imgElement.src = `statics/${id}/${image}`;
+                            imgElement.alt="Ảnh";
+                            imgElement.classList.add("img-fluid");
+                            imageContainer.appendChild(imgElement); 
+                        });
+                    } 
+                })
+                .catch(error => {
+                    console.error("Error fetching images:", error);
+                });
+        });
     });
 }
 
