@@ -1,0 +1,54 @@
+.custom-dark-bg {
+    background-color: #0f1526; 
+}
+
+.custom-dark-text {
+    color: #9e9e9ead !important; 
+}
+
+.custom-dark-text .note-card {
+    color: #131313;
+}
+
+.custom-dark-bg .note-card {
+    background-color: #ffffff; 
+}
+
+.note-card:hover{
+    transition: background-color 0.3s ease;
+    background-color:rgb(188, 188, 188) !important;
+}
+
+#editNoteImagePreviewContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#editNoteImagePreviewContainer img {
+    width: 60% !important;
+    height: auto;
+    margin: 10px;
+    object-fit: cover;
+}
+
+.pin-note-btn.pinned {
+    background-color: #ffc107;  /* Màu vàng khi ghim */
+    color: white;
+}
+
+.pin-note-btn {
+    background-color: #f8f9fa;  /* Màu nền ban đầu */
+    color: #000;
+}
+
+.pin-note-btn.pinned:hover {
+    transition: background-color 0.3s ease;
+    background-color: #ffc107;  /* Màu vàng khi ghim */
+    color: white;
+}
+
+.pin-note-btn {
+    background-color: #f8f9fa;  /* Màu nền ban đầu */
+    color: #000;
+}

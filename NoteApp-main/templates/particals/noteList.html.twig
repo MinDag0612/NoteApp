@@ -1,0 +1,45 @@
+<div id="notesContainer" class="row row-cols-1 row-cols-md-3 g-4">
+    
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="editNoteModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Chỉnh sửa ghi chú</h5>
+                <div id="saveStatus" class="ms-auto d-flex align-items-center">
+                    <span id="saveText" class="ms-2 text-success" style="display: none;">Đã lưu</span>
+                </div>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="editNoteId">
+
+                <div class="mb-3">
+                    <label class="form-label">Tiêu đề</label>
+                    <input type="text" class="form-control" id="editNoteTitle">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Nội dung</label>
+                    <textarea class="form-control" id="editNoteContent" rows="4"></textarea>
+                </div>
+
+                <!-- Ảnh hiện tại -->
+                <div class="mb-3">
+                    <label class="form-label">Image</label>
+                    <div id="imagePreviewContainer" class="row row-cols-1 row-cols-md-3 g-3">
+                        <!-- JS sẽ chèn ảnh tại đây -->
+                    </div>
+                </div>
+                <!-- Input chọn ảnh mới -->
+                <div class="mb-3">
+                    <label class="form-label">Chọn ảnh mới</label>
+                    <input type="file" class="form-control" id="editNoteImage" accept="image/*">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
